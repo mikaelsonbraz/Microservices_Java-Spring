@@ -37,6 +37,15 @@ public class WorkerController {
     @GetMapping("/{id}")
     public ResponseEntity<Worker> findById(@PathVariable Long id) {
         Worker worker;
+
+        /* TESTE DE TEMPO DE RESPOSTA - TOLERÂNCIA A FALHAS HYSTRIX
+        try {
+            Thread.sleep(3000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+         */
+
         if (workerRepository.findById(id).isPresent()) {
             logger.info("PORT = " + env.getProperty("local.server.port"));
             worker = workerRepository.findById(id).get();
